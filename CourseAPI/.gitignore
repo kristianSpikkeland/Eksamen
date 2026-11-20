@@ -1,0 +1,111 @@
+# ==========================================================
+#  .gitignore for Kursplassen (.NET / ASP.NET Core / Blazor)
+#  Legges i rotmappen til repoet (samme mappe som .sln)
+# ==========================================================
+
+# ---------- Byggeresultater (.NET) ----------
+[Bb]in/
+[Oo]bj/
+[Dd]ebug/
+[Rr]elease/
+x64/
+x86/
+[Aa]rm/
+[Aa]rm64/
+[Ll]og/
+[Ll]ogs/
+artifacts/
+publish/
+*.nupkg
+*.snupkg
+
+# ---------- Visual Studio ----------
+.vs/
+*.user
+*.suo
+*.userosscache
+*.sln.docstates
+*.rsuser
+*.cache
+*.vspscc
+*.vssscc
+*.pidb
+*.svclog
+*.tmp
+*.tmp_proj
+*.log
+*.binlog
+_ReSharper*/
+*.DotSettings.user
+
+# ---------- JetBrains Rider / VS Code ----------
+.idea/
+*.sln.iml
+.vscode/*
+!.vscode/settings.json
+!.vscode/launch.json
+!.vscode/extensions.json
+
+# ---------- Tester og kodedekning ----------
+[Tt]est[Rr]esult*/
+[Bb]uild[Ll]og.*
+coverage/
+*.coverage
+*.coveragexml
+coverage*.json
+coverage*.xml
+coverage*.info
+
+# ---------- Hemmeligheter og lokal konfigurasjon ----------
+# appsettings.json og appsettings.Development.json skal være med.
+# Bruk *.Local.json eller User Secrets for ekte passord.
+appsettings.*.Local.json
+appsettings.Local.json
+*.env
+.env
+.env.*
+!.env.example
+secrets.json
+*.pfx
+*.pem
+*.key
+
+# ---------- Lokale databaser ----------
+*.db
+*.db-shm
+*.db-wal
+*.sqlite
+*.sqlite3
+mysql-data/
+
+# ---------- Blazor (Server og WebAssembly) ----------
+# Byggeresultatene havner i bin/ og obj/ (dekket over).
+# Følgende gjelder hvis du bruker npm-verktøy til CSS/JS.
+node_modules/
+npm-debug.log*
+yarn-error.log*
+**/wwwroot/lib/
+**/wwwroot/dist/
+*.css.map
+*.js.map
+
+# ---------- Videofiler (leveres i ZIP, ikke i git) ----------
+*.mp4
+*.mov
+*.m4v
+*.mkv
+*.avi
+*.wmv
+*.webm
+*.flv
+*.mpg
+*.mpeg
+*.3gp
+
+# ---------- Operativsystem ----------
+Thumbs.db
+ehthumbs.db
+Desktop.ini
+$RECYCLE.BIN/
+.DS_Store
+._*
