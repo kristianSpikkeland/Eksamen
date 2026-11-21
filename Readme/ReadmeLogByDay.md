@@ -1,4 +1,4 @@
-# 20.11
+# Fredag 20.11
 ## Arbeid
 Leste gjennom oppgavetekst. 
 Så gjennom et Dometrain kurs som handler om JWT da man ikke har jobbet med JWT før.
@@ -19,4 +19,11 @@ Og legge den til i Program.cs
 builder.Services.AddDbContext<KursplassenDbContext>(options =>
     options.UseMySql(connectionString, ServerVersion.AutoDetect(connectionString))
            .UseSnakeCaseNamingConvention());
-``
+```
+
+# Lørdag 21.11
+## Arbeid
+La til docker-compose.yml fil slik at sensor enkelt kan teste løsningen mot database.
+Fikk kjørt migrasjonen og sjekket med MySql Workbench at databasen og kolonenne ble opprettet.
+Brukte ganske mye tid på å fa settet opp en seed klasse med brukere, kurs og registreringer.
+Startet APIet på nytt og sjekket at seed dataene ble opprettet i databasen. 
