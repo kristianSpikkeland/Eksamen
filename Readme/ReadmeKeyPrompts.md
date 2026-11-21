@@ -61,3 +61,43 @@ Kursplassen.Api/
 
 De faktiske HTTP-kallene fra klientsiden leverer du som en .http-fil (eller Postman/curl). Den er påkrevd i oppgave 2 og erstatter behovet for en klient.
 ```
+
+# 21.11
+## Repo og Service forhold
+### Prompt
+Oppretter en Repo mappa inni Data mappen der jeg tenker å kjøre spørringene mot db. Er det vanlig at repo klassen henter mer generelt så snerver servicen det inn mer konkret? Eller bør Servicen bare kalle repo (pluss validering såklart). Svar kort.
+
+### Svar
+Det vanlige er det siste: repoet har konkrete spørringsmetoder, og servicen kaller dem og står for forretningsreglene.
+
+Unngå at repoet henter bredt og servicen snevrer inn etterpå:
+```C# 
+// Unngå: henter alle kurs, filtrerer i minnet
+var all = await repo.GetAllAsync();
+var open = all.Where(c => c.Status == CourseStatus.Published && c.StartsAtUtc > now);
+```
+
+Da hentes hele tabellen fra databasen hver gang.
+
+Gjør heller slik:
+```C#
+// Repo: én presis spørring, filtreringen skjer i SQL
+Task<List<Course>> GetPublishedUpcomingAsync(DateTime nowUtc);
+
+// Service: regler + mapping til DTO
+var courses = await repo.GetPublishedUpcomingAsync(now);
+return courses.Select(c => new CourseSummaryResponse(...)).ToList();
+```
+
+Grov ansvarsdeling:
+
+Repo: hvordan data hentes og lagres (EF, LINQ, Include, SaveChangesAsync)
+Service: hva som er lov (eierskap, kapasitet, status, tid), feilhåndtering og mapping til DTO
+
+En fordel for oppgaven din er at repoet blir lett å mocke i enhetstestene av servicen.
+
+## Repo EF syntaks
+### Prompt
+Føler meg ikke helt komfortabel med å begynne å skrive disse Repo spørringene mot database. Vet at det stort sett er Linq, men virker som at EF har noen særegenheter. Dette må jeg lære mer om da jeg tidligere har brukt dapper. Lag en ryddig md fil. Det er viktig at du ikke tar å lager en fasit for eksamen men lager en annen fiktiv case. Det er en fordel om du dekker teorien jeg trenger for å skrive alle spørringene. Ikke ta helt avgårde og lag 30 sider. Fokuser på det viktigste. Utfordre meg om prompten burde justeres.
+
+Svar: Se vedleggsmappen og dokument med navn: EF_Core_Sporringer.md
