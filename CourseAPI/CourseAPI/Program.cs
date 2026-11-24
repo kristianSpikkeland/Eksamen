@@ -4,11 +4,17 @@ using CourseAPI.Data.Repos.Interfaces;
 using CourseAPI.Entities;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
+using System.Text.Json.Serialization;
 
 var builder = WebApplication.CreateBuilder(args);
 
 var connectionString = builder.Configuration.GetConnectionString("Kursplassen")
     ?? throw new InvalidOperationException("Connection string 'Kursplassen' mangler i konfigurasjonen.");
+
+
+// Enumer sendes og leses som tekst i JSON, f.eks. "Published" i stedet for 1
+builder.Services.ConfigureHttpJsonOptions(options =>
+    options.SerializerOptions.Converters.Add(new JsonStringEnumConverter()));
 
 // Registrer repositoryene som tjenester
 builder.Services.AddScoped<ICourseRepo, CourseRepo>();
